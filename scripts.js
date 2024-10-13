@@ -2,21 +2,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const myComputerIcon = document.getElementById('my-computer');
     const recycleBinIcon = document.getElementById('recycle-bin');
     const contextMenu = document.getElementById('context-menu');
+    const desktopContextMenu = document.getElementById('desktop-context-menu');
+    const desktop = document.getElementById('desktop');
 
-    const showContextMenu = (event, iconId) => {
+    const showContextMenu = (event, menu) => {
         event.preventDefault();
-        contextMenu.style.top = `${event.clientY}px`;
-        contextMenu.style.left = `${event.clientX}px`;
-        contextMenu.style.display = 'block';
-        contextMenu.setAttribute('data-icon-id', iconId);
+        menu.style.top = `${event.clientY}px`;
+        menu.style.left = `${event.clientX}px`;
+        menu.style.display = 'block';
     };
 
     const hideContextMenu = () => {
         contextMenu.style.display = 'none';
+        desktopContextMenu.style.display = 'none';
     };
 
-    myComputerIcon.addEventListener('contextmenu', (event) => showContextMenu(event, 'my-computer'));
-    recycleBinIcon.addEventListener('contextmenu', (event) => showContextMenu(event, 'recycle-bin'));
+    myComputerIcon.addEventListener('contextmenu', (event) => {
+        showContextMenu(event, contextMenu);
+        contextMenu.setAttribute('data-icon-id', 'my-computer');
+    });
+
+    recycleBinIcon.addEventListener('contextmenu', (event) => {
+        showContextMenu(event, contextMenu);
+        contextMenu.setAttribute('data-icon-id', 'recycle-bin');
+    });
+
+    desktop.addEventListener('contextmenu', (event) => {
+        showContextMenu(event, desktopContextMenu);
+    });
 
     document.addEventListener('click', hideContextMenu);
 
@@ -24,6 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const iconId = contextMenu.getAttribute('data-icon-id');
         const action = event.target.textContent;
         alert(`Action "${action}" on icon "${iconId}"`);
+        hideContextMenu();
+    });
+
+    desktopContextMenu.addEventListener('click', (event) => {
+        const action = event.target.textContent;
+        alert(`Action "${action}" on desktop`);
         hideContextMenu();
     });
 
@@ -57,6 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
     recycleBinIcon.addEventListener('dragstart', handleDragStart);
     recycleBinIcon.addEventListener('dragend', handleDragEnd);
 
-    document.querySelector('.desktop').addEventListener('dragover', handleDragOver);
-    document.querySelector('.desktop').addEventListener('drop', handleDrop);
+    desktop.addEventListener('dragover', handleDragOver);
+    desktop.addEventListener('drop', handleDrop);
 });

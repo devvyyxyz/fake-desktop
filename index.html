@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desktop-like Website</title>
+    <title>Draggable Element Example</title>
     <link rel="stylesheet" href="styles.css">
     <script defer src="scripts.js"></script>
 </head>
 <body>
-    <div class="desktop">
+    <div class="desktop" id="desktop">
         <div class="taskbar">
             <div class="start-button">Start</div>
             <div class="taskbar-icons">
@@ -32,6 +32,13 @@
             <li>Open</li>
             <li>Properties</li>
             <li>Delete</li>
+        </ul>
+    </div>
+    <div id="desktop-context-menu" class="context-menu">
+        <ul>
+            <li>Refresh</li>
+            <li>New Folder</li>
+            <li>Paste</li>
         </ul>
     </div>
 </body>
